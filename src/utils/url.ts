@@ -11,10 +11,11 @@ export function decodeResultFromUrl(
   const type = params.get('type')
   const s = params.get('s')
 
-  if (!type || !s) return null
+  if (!type || !s || !/^[A-Z]{4}$/.test(type)) return null
 
   const parts = s.split('-').map(Number)
   if (parts.length !== 4 || parts.some(isNaN)) return null
+  if (parts.some(p => p < 0 || p > 100)) return null
 
   return {
     typeCode: type,

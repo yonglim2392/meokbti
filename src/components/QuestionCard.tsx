@@ -14,13 +14,15 @@ export function QuestionCard({ question, onAnswer }: Props) {
       <div className="flex flex-col gap-3">
         <button
           onClick={() => onAnswer(question.id, 'A')}
-          className="w-full py-4 px-4 border-2 border-orange-200 rounded-xl text-left text-gray-700 hover:bg-orange-50 hover:border-orange-400 transition-colors"
+          aria-label={`${question.text} - ${question.optionA}`}
+          className="w-full py-4 px-4 border-2 border-orange-200 rounded-xl text-left text-gray-700 hover:bg-orange-50 hover:border-orange-400 focus-visible:outline-2 focus-visible:outline-orange-500 transition-colors"
         >
           {question.optionA}
         </button>
         <button
           onClick={() => onAnswer(question.id, 'B')}
-          className="w-full py-4 px-4 border-2 border-orange-200 rounded-xl text-left text-gray-700 hover:bg-orange-50 hover:border-orange-400 transition-colors"
+          aria-label={`${question.text} - ${question.optionB}`}
+          className="w-full py-4 px-4 border-2 border-orange-200 rounded-xl text-left text-gray-700 hover:bg-orange-50 hover:border-orange-400 focus-visible:outline-2 focus-visible:outline-orange-500 transition-colors"
         >
           {question.optionB}
         </button>

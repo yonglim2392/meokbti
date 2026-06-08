@@ -13,4 +13,10 @@ describe('ProgressBar', () => {
     const fill = container.querySelector('[data-testid="progress-fill"]')
     expect(fill).toHaveStyle({ width: '50%' })
   })
+
+  it('renders 0% when total is 0', () => {
+    const { container } = render(<ProgressBar current={0} total={0} />)
+    const fill = container.querySelector('[data-testid="progress-fill"]')
+    expect(fill).toHaveStyle({ width: '0%' })
+  })
 })

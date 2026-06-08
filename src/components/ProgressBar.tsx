@@ -4,7 +4,7 @@ interface Props {
 }
 
 export function ProgressBar({ current, total }: Props) {
-  const percent = Math.round((current / total) * 100)
+  const percent = total > 0 ? Math.round((current / total) * 100) : 0
   return (
     <div className="w-full">
       <div className="flex justify-between text-sm text-gray-500 mb-1">

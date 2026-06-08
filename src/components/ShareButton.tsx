@@ -51,9 +51,13 @@ export function ShareButton({ typeCode, typeName, scores }: Props) {
   }
 
   function handleCopyLink() {
-    navigator.clipboard.writeText(resultUrl).then(() => {
-      alert('링크가 복사되었습니다!')
-    })
+    navigator.clipboard.writeText(resultUrl)
+      .then(() => {
+        alert('링크가 복사되었습니다!')
+      })
+      .catch(() => {
+        alert('링크 복사에 실패했습니다. 다시 시도해주세요.')
+      })
   }
 
   return (

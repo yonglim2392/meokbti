@@ -28,6 +28,8 @@ describe('calculateScores', () => {
     const scores = calculateScores(answers, mockQuestions)
     expect(scores.gp).toBe(0)
     expect(scores.js).toBe(0)
+    expect(scores.er).toBe(0)
+    expect(scores.hm).toBe(0)
   })
 
   it('returns 50 for axis when half A half B', () => {

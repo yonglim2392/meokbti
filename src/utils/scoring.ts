@@ -13,10 +13,10 @@ export function calculateScores(
   }
 
   return {
-    gp: Math.round((counts.gp / totals.gp) * 100),
-    js: Math.round((counts.js / totals.js) * 100),
-    er: Math.round((counts.er / totals.er) * 100),
-    hm: Math.round((counts.hm / totals.hm) * 100),
+    gp: totals.gp > 0 ? Math.round((counts.gp / totals.gp) * 100) : 0,
+    js: totals.js > 0 ? Math.round((counts.js / totals.js) * 100) : 0,
+    er: totals.er > 0 ? Math.round((counts.er / totals.er) * 100) : 0,
+    hm: totals.hm > 0 ? Math.round((counts.hm / totals.hm) * 100) : 0,
   }
 }
 

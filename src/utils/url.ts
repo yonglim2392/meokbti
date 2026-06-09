@@ -21,6 +21,6 @@ export function decodeResultFromUrl(
 
   return {
     typeCode: type,
-    scores: Object.fromEntries(AXIS_ORDER.map((a, i) => [a, parts[i]])) as AxisScores,
+    scores: Object.fromEntries(AXIS_ORDER.map((a, i) => [a, parts[i]])) as unknown as AxisScores,
   }
 }

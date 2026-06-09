@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, fireEvent, act } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { MemoryRouter } from 'react-router-dom'
@@ -33,5 +33,17 @@ describe('Quiz', () => {
     expect(mockNavigate).toHaveBeenCalledWith(
       expect.stringMatching(/^\/result\?type=/)
     )
+  })
+
+  it('double-click guard: rapid clicks advance only one question', async () => {
+    render(<MemoryRouter><Quiz /></MemoryRouter>)
+    const btn = screen.getAllByRole('button')[0]
+    // Wrap in act() so React batches updates — all three clicks fire before any re-render
+    act(() => {
+      fireEvent.click(btn)
+      fireEvent.click(btn)
+      fireEvent.click(btn)
+    })
+    expect(await screen.findByText('2 / 20')).toBeInTheDocument()
   })
 })

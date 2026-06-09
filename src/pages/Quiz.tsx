@@ -10,11 +10,11 @@ export function Quiz() {
   const navigate = useNavigate()
   const [currentIndex, setCurrentIndex] = useState(0)
   const [answers, setAnswers] = useState<Record<number, 'A' | 'B'>>({})
-  const processingRef = useRef(false)
+  const answeredRef = useRef<number | null>(null)
 
   function handleAnswer(questionId: number, answer: 'A' | 'B') {
-    if (processingRef.current) return
-    processingRef.current = true
+    if (answeredRef.current === questionId) return
+    answeredRef.current = questionId
 
     const newAnswers = { ...answers, [questionId]: answer }
     setAnswers(newAnswers)
@@ -24,7 +24,6 @@ export function Quiz() {
       navigate('/result' + encodeResultToUrl(result.typeCode, result.scores))
     } else {
       setCurrentIndex(currentIndex + 1)
-      processingRef.current = false
     }
   }
 

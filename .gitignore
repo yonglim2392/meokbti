@@ -27,3 +27,8 @@ dist-ssr
 .env.local
 
 .vercel
+
+# AI / gstack internal files
+docs/superpowers/
+CLAUDE.md
+.claude/

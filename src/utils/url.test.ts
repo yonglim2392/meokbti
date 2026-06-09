@@ -39,4 +39,8 @@ describe('decodeResultFromUrl', () => {
   it('returns null when scores are out of range', () => {
     expect(decodeResultFromUrl('?type=GJEH&s=999-60-90-70')).toBeNull()
   })
+
+  it('returns null when scores are negative', () => {
+    expect(decodeResultFromUrl('?type=GJEH&s=-1-60-90-70')).toBeNull()
+  })
 })

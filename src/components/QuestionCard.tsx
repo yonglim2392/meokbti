@@ -12,20 +12,16 @@ export function QuestionCard({ question, onAnswer }: Props) {
         {question.text}
       </p>
       <div className="flex flex-col gap-3">
-        <button
-          onClick={() => onAnswer(question.id, 'A')}
-          aria-label={`${question.text} - ${question.optionA}`}
-          className="w-full py-4 px-4 border-2 border-orange-200 rounded-xl text-left text-gray-700 hover:bg-orange-50 hover:border-orange-400 focus-visible:outline-2 focus-visible:outline-orange-500 transition-colors"
-        >
-          {question.optionA}
-        </button>
-        <button
-          onClick={() => onAnswer(question.id, 'B')}
-          aria-label={`${question.text} - ${question.optionB}`}
-          className="w-full py-4 px-4 border-2 border-orange-200 rounded-xl text-left text-gray-700 hover:bg-orange-50 hover:border-orange-400 focus-visible:outline-2 focus-visible:outline-orange-500 transition-colors"
-        >
-          {question.optionB}
-        </button>
+        {([['A', question.optionA], ['B', question.optionB]] as const).map(([answer, label]) => (
+          <button
+            key={answer}
+            onClick={() => onAnswer(question.id, answer)}
+            aria-label={`${question.text} - ${label}`}
+            className="w-full py-4 px-4 border-2 border-orange-200 rounded-xl text-left text-gray-700 hover:bg-orange-50 hover:border-orange-400 focus-visible:outline-2 focus-visible:outline-orange-500 transition-colors"
+          >
+            {label}
+          </button>
+        ))}
       </div>
     </div>
   )

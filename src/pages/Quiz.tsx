@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { questions } from '../data/questions'
 import { calculateResult } from '../utils/scoring'
@@ -10,8 +10,12 @@ export function Quiz() {
   const navigate = useNavigate()
   const [currentIndex, setCurrentIndex] = useState(0)
   const [answers, setAnswers] = useState<Record<number, 'A' | 'B'>>({})
+  const processingRef = useRef(false)
 
   function handleAnswer(questionId: number, answer: 'A' | 'B') {
+    if (processingRef.current) return
+    processingRef.current = true
+
     const newAnswers = { ...answers, [questionId]: answer }
     setAnswers(newAnswers)
 
@@ -20,6 +24,7 @@ export function Quiz() {
       navigate('/result' + encodeResultToUrl(result.typeCode, result.scores))
     } else {
       setCurrentIndex(currentIndex + 1)
+      processingRef.current = false
     }
   }
 

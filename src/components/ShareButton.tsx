@@ -10,24 +10,22 @@ interface Props {
 export function ShareButton({ typeCode, typeName, scores }: Props) {
   const resultUrl = window.location.origin + '/result' + encodeResultToUrl(typeCode, scores)
 
+  function copyToClipboard() {
+    navigator.clipboard.writeText(resultUrl)
+      .then(() => { alert('링크가 복사되었습니다!') })
+      .catch(() => { alert('링크 복사에 실패했습니다. 다시 시도해주세요.') })
+  }
+
   function handleShare() {
     if (navigator.share) {
       navigator.share({
         title: `나의 먹BTI는 ${typeCode} — ${typeName}`,
         text: '당신의 식습관 유형을 알아보세요!',
         url: resultUrl,
-      })
+      }).catch(() => {})
     } else {
-      navigator.clipboard.writeText(resultUrl)
-        .then(() => { alert('링크가 복사되었습니다!') })
-        .catch(() => { alert('링크 복사에 실패했습니다. 다시 시도해주세요.') })
+      copyToClipboard()
     }
-  }
-
-  function handleCopyLink() {
-    navigator.clipboard.writeText(resultUrl)
-      .then(() => { alert('링크가 복사되었습니다!') })
-      .catch(() => { alert('링크 복사에 실패했습니다. 다시 시도해주세요.') })
   }
 
   return (
@@ -35,14 +33,14 @@ export function ShareButton({ typeCode, typeName, scores }: Props) {
       <button
         type="button"
         onClick={handleShare}
-        className="flex-1 py-3 bg-yellow-400 text-gray-900 font-semibold rounded-xl hover:bg-yellow-300 transition-colors"
+        className="flex-1 py-3 bg-yellow-400 text-gray-900 font-semibold rounded-xl hover:bg-yellow-300 focus-visible:outline-2 focus-visible:outline-orange-500 transition-colors"
       >
         공유하기
       </button>
       <button
         type="button"
-        onClick={handleCopyLink}
-        className="flex-1 py-3 bg-gray-100 text-gray-700 font-semibold rounded-xl hover:bg-gray-200 transition-colors"
+        onClick={copyToClipboard}
+        className="flex-1 py-3 bg-gray-100 text-gray-700 font-semibold rounded-xl hover:bg-gray-200 focus-visible:outline-2 focus-visible:outline-gray-400 transition-colors"
       >
         링크 복사
       </button>

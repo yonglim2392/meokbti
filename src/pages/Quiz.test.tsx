@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { describe, it, expect, vi } from 'vitest'
+import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { MemoryRouter } from 'react-router-dom'
 import { Quiz } from './Quiz'
 
@@ -11,6 +11,9 @@ vi.mock('react-router-dom', async () => {
 })
 
 describe('Quiz', () => {
+  beforeEach(() => {
+    mockNavigate.mockClear()
+  })
   it('renders the first question progress indicator', () => {
     render(<MemoryRouter><Quiz /></MemoryRouter>)
     expect(screen.getByText('1 / 20')).toBeInTheDocument()

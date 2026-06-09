@@ -1,23 +1,23 @@
 import type { QuizQuestion, AxisScores, QuizResult, Axis } from '../types'
 
+export const AXES: Axis[] = ['gp', 'js', 'er', 'hm']
+
 export function calculateScores(
   answers: Record<number, 'A' | 'B'>,
   questions: QuizQuestion[]
 ): AxisScores {
-  const counts: Record<Axis, number> = { gp: 0, js: 0, er: 0, hm: 0 }
-  const totals: Record<Axis, number> = { gp: 0, js: 0, er: 0, hm: 0 }
+  const counts = Object.fromEntries(AXES.map(a => [a, 0])) as Record<Axis, number>
+  const totals = Object.fromEntries(AXES.map(a => [a, 0])) as Record<Axis, number>
 
   for (const q of questions) {
     totals[q.axis]++
     if (answers[q.id] === 'A') counts[q.axis]++
   }
 
-  return {
-    gp: totals.gp > 0 ? Math.round((counts.gp / totals.gp) * 100) : 0,
-    js: totals.js > 0 ? Math.round((counts.js / totals.js) * 100) : 0,
-    er: totals.er > 0 ? Math.round((counts.er / totals.er) * 100) : 0,
-    hm: totals.hm > 0 ? Math.round((counts.hm / totals.hm) * 100) : 0,
-  }
+  const score = (axis: Axis) =>
+    totals[axis] > 0 ? Math.round((counts[axis] / totals[axis]) * 100) : 0
+
+  return { gp: score('gp'), js: score('js'), er: score('er'), hm: score('hm') }
 }
 
 export function scoresToTypeCode(scores: AxisScores): string {

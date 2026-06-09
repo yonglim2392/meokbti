@@ -74,7 +74,7 @@ export function Result() {
         <button
           type="button"
           onClick={() => navigate('/')}
-          className="w-full py-3 bg-white text-gray-500 rounded-xl border border-gray-200 hover:bg-gray-50 transition-colors"
+          className="w-full py-3 bg-white text-gray-500 rounded-xl border border-gray-200 hover:bg-gray-50 focus-visible:outline-2 focus-visible:outline-gray-400 transition-colors"
         >
           다시 테스트하기
         </button>
